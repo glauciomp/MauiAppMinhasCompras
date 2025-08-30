@@ -4,17 +4,25 @@
              x:Class="MauiAppMinhasCompras.Views.NovoProduto"
              Title="Novo Produto">
 
-    <ContentPage.ToolbarItems>
+    <ContentPage.ToolbarItems> <!-- mesmo conceito em colocar o botão acima no app -->
+        
         <ToolbarItem Text="Salvar" Clicked="ToolbarItem_Clicked"/>
+        <!-- programando o botão inserindo o clicked para navegar -->
+        
     </ContentPage.ToolbarItems>
     
     <VerticalStackLayout Spacing="10" Padding="10">
         <Label Text="Descrição do Produto:"/>
+        <!-- inserindo o título dos campos -->
+
         <Entry x:Name="txt_descricao"/>
+        <!-- pegando o que o usuário digitou -->
 
         <Label Text="Quantidade:"/>
         <Entry x:Name="txt_quantidade" Keyboard="Numeric"/>
-        
+        <!-- definindo para o usuário digitar numero -->
+
+
         <Label Text="Preço Unitário:"/>
         <Entry x:Name="txt_preco" Keyboard="Numeric"/>
     </VerticalStackLayout>
