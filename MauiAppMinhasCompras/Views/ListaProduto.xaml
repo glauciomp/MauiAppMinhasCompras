@@ -7,13 +7,19 @@
     <ContentPage.ToolbarItems>
         <ToolbarItem Text="Somar" Clicked="ToolbarItem_Clicked_1"/>
         <ToolbarItem Text="Adicionar" Clicked="ToolbarItem_Clicked"/>
-        <ToolbarItem Text="Remover"/>
+       
     </ContentPage.ToolbarItems>
     
     <VerticalStackLayout>
         <SearchBar x:Name="txt_search" 
                    Placeholder="Busca de Produtos"
                    TextChanged="Txt_search_TextChanged"/>
+                    <Label Text="Para remover um produto, pressione e segure-o (celular) ou clique com o botão direito (Windows)."
+                           HorizontalOptions="Center"
+                           Margin="10"
+                           FontAttributes="Italic"
+                           FontSize="Small"
+                           TextColor="Gray" />
         <ListView x:Name="lst_produtos">
             <ListView.Header>
                 <Grid ColumnDefinitions="*, *, *, *, *, *">

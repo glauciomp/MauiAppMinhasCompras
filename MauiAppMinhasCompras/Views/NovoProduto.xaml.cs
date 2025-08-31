@@ -29,6 +29,7 @@ public partial class NovoProduto : ContentPage
             // todo método que tem await precisa estar dentro de um método async
             await App.Db.Insert(p); // aqui estamos chamando o método Insert da classe App que é onde está a conexão com o banco de dados
             await DisplayAlert("Sucesso!", "Registro inserido", "Ok"); // aqui estamos exibindo uma mensagem de sucesso ao usuário
+            await Navigation.PopAsync(); // voltando para a lista dos produtos
 
         } catch(Exception ex)
 		{

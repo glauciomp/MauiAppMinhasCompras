@@ -15,6 +15,7 @@ public partial class ListaProduto : ContentPage
 
     protected async override void OnAppearing()
     {
+        lista.Clear();
 		List<Produto> tmp = await App.Db.GetAll();
 		tmp.ForEach(i => lista.Add(i)); // aqui estamos populando a lista com os produtos do banco de dados
     }
@@ -56,18 +57,35 @@ public partial class ListaProduto : ContentPage
 
     private async void MenuItem_Clicked(object sender, EventArgs e)
     {
-		try 
-		{ 
-			var produtoASerRemovido = (sender as MenuItem)?.BindingContext as Produto;
-			
-			if (produtoASerRemovido != null)
-			{
-				await App.Db.Delete(produtoASerRemovido.Id);
+        try
+        {
+            var produtoASerRemovido = (sender as MenuItem)?.BindingContext as Produto;
+
+            if (produtoASerRemovido != null)
+            {
+                // Adiciona o pop-up de confirmação
+                bool resposta = await DisplayAlert("Confirmação",
+                                                   $"Deseja realmente remover o produto '{produtoASerRemovido.Descricao}'?",
+                                                   "Sim",
+                                                   "Não");
+
+                // Se o usuário clicar em "Sim"
+                if (resposta)
+                {
+                    // 1. Remove o produto do banco de dados
+                    await App.Db.Delete(produtoASerRemovido.Id);
+
+                    // 2. Remove o produto da ObservableCollection para atualizar a UI
+                    lista.Remove(produtoASerRemovido);
+
+                    // Opcional: exibe uma mensagem de sucesso
+                    await DisplayAlert("Sucesso", "Produto removido com sucesso!", "Ok");
+                }
             }
         }
-		catch(Exception ex)
-		{
-			await DisplayAlert("Ops", ex.Message, "Ok");
+        catch (Exception ex)
+        {
+            await DisplayAlert("Ops", ex.Message, "Ok");
         }
     }
 }
