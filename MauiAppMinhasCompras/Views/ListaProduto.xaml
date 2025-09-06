@@ -13,17 +13,18 @@
     <VerticalStackLayout>
         <SearchBar x:Name="txt_search" 
                    Placeholder="Busca de Produtos"
-                   TextChanged="Txt_search_TextChanged"/>
+                   TextChanged="Txt_search_TextChanged"
+                   HorizontalOptions="Center"/>
                     <Label Text="Para remover um produto, pressione e segure-o (celular) ou clique com o botão direito (Windows)."
                            HorizontalOptions="Center"
                            Margin="10"
                            FontAttributes="Italic"
                            FontSize="Small"
                            TextColor="Gray" />
-        <ListView x:Name="lst_produtos">
+        <ListView x:Name="lst_produtos" ItemSelected="lst_produtos_ItemSelected">
             <ListView.Header>
-                <Grid ColumnDefinitions="*, *, *, *, *, *">
-                    <Label Grid.Column="0" Text="ID"/>
+                <Grid ColumnDefinitions="*, *, *, *, *">
+                    <Label Grid.Column="0" Text="ID" Margin="10,0,0,0"/>
                     <Label Grid.Column="1" Text="Descrição"/>
                     <Label Grid.Column="2" Text="Preço"/>
                     <Label Grid.Column="3" Text="Qtd"/>
@@ -37,8 +38,8 @@
                             <MenuItem Text="Remover"
                                       Clicked="MenuItem_Clicked"/>                        
                         </ViewCell.ContextActions>
-                        <Grid ColumnDefinitions="*, *, *, *, *, *">
-                            <Label Grid.Column="0" Text="{Binding Id}"/>
+                        <Grid ColumnDefinitions="*, *, *, *, *">
+                            <Label Grid.Column="0" Text="{Binding Id}" Margin="10,0,0,0"/>
                             <Label Grid.Column="1" Text="{Binding Descricao}"/>
                             <Label Grid.Column="2" Text="{Binding Preco}"/>
                             <Label Grid.Column="3" Text="{Binding Quantidade}"/>
