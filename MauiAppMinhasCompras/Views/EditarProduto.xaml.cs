@@ -1,39 +1,31 @@
 using MauiAppMinhasCompras.Models;
 
-namespace MauiAppMinhasCompras.Views;
-
-public partial class EditarProduto : ContentPage
+namespace MauiAppMinhasCompras.Views
 {
-	public EditarProduto()
-	{
-		InitializeComponent();
-	}
-
-    private async void ToolbarItem_Clicked(object sender, EventArgs e)
+    public partial class EditarProduto : ContentPage
     {
-        try
+        public EditarProduto(Produto produto)
         {
-            Produto produto_anexado = BindingContext as Produto;
-
-            Produto p = new Produto
-            {
-                // aqui inserindo as propriedades dos produtos
-                Id = produto_anexado.Id,
-                Descricao = txt_descricao.Text,
-                Quantidade = Convert.ToDouble(txt_quantidade.Text),
-                Preco = Convert.ToDouble(txt_preco.Text),
-
-            };
-
-            // todo método que tem await precisa estar dentro de um método async
-            await App.Db.Update(p);
-            await DisplayAlert("Sucesso!", "Registro atualizado", "Ok"); // aqui estamos exibindo uma mensagem de sucesso ao usuário
-            await Navigation.PopAsync();
-
+            InitializeComponent();
+            BindingContext = produto;
         }
-        catch (Exception ex)
+
+        private async void Salvar_Clicked(object sender, EventArgs e)
         {
-            await DisplayAlert("Ops", ex.Message, "OK");
+            var produto = BindingContext as Produto;
+
+            // Força a validação de todos os campos
+            produto.ValidateAll();
+
+            if (produto.HasErrors)
+            {
+                await DisplayAlert("Atenção", "Corrija os erros antes de salvar.", "OK");
+                return;
+            }
+
+            await App.Db.Update(produto);
+            await DisplayAlert("Sucesso!", "Registro atualizado", "Ok");
+            await Navigation.PopAsync();
         }
     }
 }

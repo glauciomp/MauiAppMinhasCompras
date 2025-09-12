@@ -1,29 +1,42 @@
-<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="MauiAppMinhasCompras.Views.NovoProduto"
              Title="Novo Produto">
 
-    <ContentPage.ToolbarItems> <!-- mesmo conceito em colocar o botão acima no app -->
-        
-        <ToolbarItem Text="Salvar" Clicked="ToolbarItem_Clicked"/>
-        <!-- programando o botão inserindo o clicked para navegar -->
-        
-    </ContentPage.ToolbarItems>
-    
-    <VerticalStackLayout Spacing="10" Padding="10">
-        <Label Text="Descrição do Produto:"/>
-        <!-- inserindo o título dos campos -->
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="15">
 
-        <Entry x:Name="txt_descricao"/>
-        <!-- pegando o que o usuário digitou -->
+            <!-- Descrição -->
+            <Entry Placeholder="Descrição"
+                   Text="{Binding Descricao, Mode=TwoWay}" />
+            <Label TextColor="Red" FontSize="Small"
+                   Text="{Binding ErroDescricao}" />
 
-        <Label Text="Quantidade:"/>
-        <Entry x:Name="txt_quantidade" Keyboard="Numeric"/>
-        <!-- definindo para o usuário digitar numero -->
+            <!-- Quantidade -->
+            <Entry Placeholder="Quantidade"
+                   Keyboard="Numeric"
+                   Text="{Binding Quantidade, Mode=TwoWay}" />
+            <Label TextColor="Red" FontSize="Small"
+                   Text="{Binding ErroQuantidade}" />
 
+            <!-- Preço -->
+            <Entry Placeholder="Preço"
+                   Keyboard="Numeric"
+                   Text="{Binding Preco, Mode=TwoWay}" />
+            <Label TextColor="Red" FontSize="Small"
+                   Text="{Binding ErroPreco}" />
 
-        <Label Text="Preço Unitário:"/>
-        <Entry x:Name="txt_preco" Keyboard="Numeric"/>
-    </VerticalStackLayout>
+            <!-- Categoria -->
+            <Entry Placeholder="Categoria"
+                   Text="{Binding Categoria, Mode=TwoWay}" />
+            <Label TextColor="Red" FontSize="Small"
+                   Text="{Binding ErroCategoria}" />
+
+            <!-- Botão Salvar -->
+            <Button Text="Salvar"
+                    Clicked="Salvar_Clicked"
+                    IsEnabled="{Binding HasErrors, Converter={StaticResource InverseBoolConverter}}" />
+
+        </VerticalStackLayout>
+    </ScrollView>
 </ContentPage>
